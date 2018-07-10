@@ -9,42 +9,48 @@
 import Foundation
 
 public struct InclusionDate {
+
     /// All inclusive dates.
-    public fileprivate(set) var dates = [Date]()
+    public fileprivate(set) var dates: [Date] = []
 
     public init(dates: [Date]) {
         self.dates = dates
     }
 
     public init?(rdateString string: String) {
-        let string = string.trimmingCharacters(in: .whitespaces)
-        guard let range = string.range(of: "RDATE:"), range.lowerBound == string.startIndex else {
+        let string: String = string.trimmingCharacters(in: .whitespaces)
+        guard let range: Range = string.range(of: "RDATE:"), range.lowerBound == string.startIndex else {
             return nil
         }
-        let rdateString = String(string.suffix(from: range.upperBound))
-        let rdates = rdateString.components(separatedBy: ",").compactMap { (dateString) -> String? in
+        let rdateString: String = String(string.suffix(from: range.upperBound))
+        let rdates: [String] = rdateString.components(separatedBy: ",").compactMap { (dateString) -> String? in
+
             if dateString.isEmpty {
                 return nil
             }
+            
             return dateString
         }
 
         self.dates = rdates.compactMap({ (dateString) -> Date? in
-            if let date = RRule.dateFormatter.date(from: dateString) {
+
+            if let date: Date = RRule.dateFormatter.date(from: dateString) {
                 return date
-            } else if let date = RRule.realDate(dateString) {
+            } else if let date: Date = RRule.realDate(dateString) {
                 return date
             }
+            
             return nil
         })
     }
 
     public func toRDateString() -> String {
-        var rdateString = "RDATE:"
-        let dateStrings = dates.map { (date) -> String in
+        var rdateString: String = "RDATE:"
+        let dateStrings: [String] = dates.map { (date) -> String in
             return RRule.dateFormatter.string(from: date)
         }
-        if dateStrings.count > 0 {
+
+        if !dateStrings.isEmpty {
             rdateString += dateStrings.joined(separator: ",")
         }
 

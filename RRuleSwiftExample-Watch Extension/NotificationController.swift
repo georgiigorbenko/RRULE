@@ -6,9 +6,8 @@
 //  Copyright © 2016年 Teambition. All rights reserved.
 //
 
-import WatchKit
 import Foundation
-
+import WatchKit
 
 class NotificationController: WKUserNotificationInterfaceController {
 

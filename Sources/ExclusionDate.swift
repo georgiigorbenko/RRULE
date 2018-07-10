@@ -9,10 +9,12 @@
 import Foundation
 
 public struct ExclusionDate {
+
     /// All exclusion dates.
-    public fileprivate(set) var dates = [Date]()
+    public fileprivate(set) var dates: [Date] = []
+    
     /// The component of ExclusionDate, used to decide which exdate will be excluded.
-    public fileprivate(set) var component: Calendar.Component!
+    public fileprivate(set) var component: Calendar.Component
 
     public init(dates: [Date], granularity component: Calendar.Component) {
         self.dates = dates
@@ -20,35 +22,36 @@ public struct ExclusionDate {
     }
 
     public init?(exdateString string: String, granularity component: Calendar.Component) {
-        let string = string.trimmingCharacters(in: .whitespaces)
-        guard let range = string.range(of: "EXDATE:"), range.lowerBound == string.startIndex else {
+        let string: String = string.trimmingCharacters(in: .whitespaces)
+        guard let range: Range = string.range(of: "EXDATE:"), range.lowerBound == string.startIndex else {
             return nil
         }
-        let exdateString = String(string.suffix(from: range.upperBound))
-        let exdates = exdateString.components(separatedBy: ",").compactMap { (dateString) -> String? in
+        let exdateString: String = String(string.suffix(from: range.upperBound))
+        let exdates: [String] = exdateString.components(separatedBy: ",").compactMap { (dateString) -> String? in
             if dateString.isEmpty {
                 return nil
             }
             return dateString
         }
 
-        self.dates = exdates.compactMap({ (dateString) -> Date? in
-            if let date = RRule.dateFormatter.date(from: dateString) {
+        self.dates = exdates.compactMap { (dateString) -> Date? in
+            if let date: Date = RRule.dateFormatter.date(from: dateString) {
                 return date
-            } else if let date = RRule.realDate(dateString) {
+            } else if let date: Date = RRule.realDate(dateString) {
                 return date
             }
             return nil
-        })
+        }
         self.component = component
     }
 
     public func toExDateString() -> String? {
-        var exdateString = "EXDATE:"
-        let dateStrings = dates.map { (date) -> String in
+        var exdateString: String = "EXDATE:"
+        let dateStrings: [String] = dates.map { (date) -> String in
             return RRule.dateFormatter.string(from: date)
         }
-        if dateStrings.count > 0 {
+
+        if !dateStrings.isEmpty {
             exdateString += dateStrings.joined(separator: ",")
         } else {
             return nil
@@ -57,7 +60,6 @@ public struct ExclusionDate {
         if String(exdateString.suffix(from: exdateString.index(exdateString.endIndex, offsetBy: -1))) == "," {
             exdateString.remove(at: exdateString.index(exdateString.endIndex, offsetBy: -1))
         }
-
         return exdateString
     }
 }

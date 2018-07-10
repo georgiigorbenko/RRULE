@@ -7,6 +7,7 @@
 //
 
 public enum RecurrenceFrequency {
+    
     case yearly
     case monthly
     case weekly
@@ -19,11 +20,11 @@ public enum RecurrenceFrequency {
         switch self {
         case .secondly: return "SECONDLY"
         case .minutely: return "MINUTELY"
-        case .hourly: return "HOURLY"
-        case .daily: return "DAILY"
-        case .weekly: return "WEEKLY"
-        case .monthly: return "MONTHLY"
-        case .yearly: return "YEARLY"
+        case .hourly:   return "HOURLY"
+        case .daily:    return "DAILY"
+        case .weekly:   return "WEEKLY"
+        case .monthly:  return "MONTHLY"
+        case .yearly:   return "YEARLY"
         }
     }
 

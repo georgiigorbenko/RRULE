@@ -150,6 +150,7 @@
 				D31B13931CA8E02E00D0B863 /* Frameworks */,
 				D31B13941CA8E02E00D0B863 /* Headers */,
 				D31B13951CA8E02E00D0B863 /* Resources */,
+				27FF029320F4AFE500A7B65A /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -233,6 +234,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		27FF029320F4AFE500A7B65A /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint autocorrect\n    swiftlint\nelse\n    echo \"error: SwiftLintをインストールしてください。\"\n    exit -1\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D31B13921CA8E02E00D0B863 /* Sources */ = {
