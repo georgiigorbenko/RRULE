@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
 RRULE is a library that can handle RRules with Swift.
 This library was created by forking https://github.com/teambition/RRuleSwift.
                    DESC
-  s.homepage     = "http://EXAMPLE/RRULE"
+  s.homepage     = "https://github.com/1amageek/RRULE"
   s.license      = { :type => "MIT", :file => "LICENSE.md" }
   s.author             = { "1amageek" => "tmy0x3@icloud.com" }
   s.social_media_url   = "http://twitter.com/1amageek"
@@ -16,7 +16,7 @@ This library was created by forking https://github.com/teambition/RRuleSwift.
   s.osx.deployment_target = "10.10"
   s.watchos.deployment_target = "2.0"
   s.tvos.deployment_target = "9.0"
-  s.source       = { :git => "http://EXAMPLE/RRULE.git", :tag => "#{s.version}" }
-  s.source_files  = "RRuleSwift/Sources/*.swift"
+  s.source       = { :git => "https://github.com/1amageek/RRULE.git", :tag => "#{s.version}" }
+  s.source_files = "Sources/**/*.{swift, js}"
 
 end
