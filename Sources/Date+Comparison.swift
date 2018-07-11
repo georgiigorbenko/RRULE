@@ -1,9 +1,9 @@
 //
-//  NSDate+Comparison.swift
-//  RRuleSwift
+//  Date+Comparison.swift
+//  RRuleSwift-iOS
 //
-//  Created by Xin Hong on 16/3/28.
-//  Copyright © 2016年 Teambition. All rights reserved.
+//  Created by 1amageek on 2018/07/11.
+//  Copyright © 2018年 Teambition. All rights reserved.
 //
 
 import Foundation

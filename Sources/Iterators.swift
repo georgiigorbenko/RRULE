@@ -12,7 +12,7 @@ import JavaScriptCore
 public struct Iterator {
 
     public static let endlessRecurrenceCount: Int = 500
-    
+
     internal static let rruleContext: JSContext? = {
         guard let rrulejs: String = JavaScriptBridge.rrulejs() else {
             return nil
@@ -27,10 +27,10 @@ public struct Iterator {
 }
 
 public extension RecurrenceRule {
+
     public func allOccurrences(endless endlessRecurrenceCount: Int = Iterator.endlessRecurrenceCount) -> [Date] {
-        guard let _ = JavaScriptBridge.rrulejs() else {
-            return []
-        }
+
+        if JavaScriptBridge.rrulejs() == nil { return [] }
 
         let ruleJSONString: String = toJSONString(endless: endlessRecurrenceCount)
         _ = Iterator.rruleContext?.evaluateScript("var rule = new RRule({ \(ruleJSONString) })")
@@ -58,31 +58,29 @@ public extension RecurrenceRule {
     }
 
     public func occurrences(between date: Date, and otherDate: Date, endless endlessRecurrenceCount: Int = Iterator.endlessRecurrenceCount) -> [Date] {
-        guard let _ = JavaScriptBridge.rrulejs() else {
-            return []
-        }
+
+        if JavaScriptBridge.rrulejs() == nil { return [] }
 
         let beginDate: Date = date.isBeforeOrSame(with: otherDate) ? date : otherDate
         let untilDate: Date = otherDate.isAfterOrSame(with: date) ? otherDate : date
         let beginDateJSON: String = RRule.ISO8601DateFormatter.string(from: beginDate)
         let untilDateJSON: String = RRule.ISO8601DateFormatter.string(from: untilDate)
 
-        let ruleJSONString = toJSONString(endless: endlessRecurrenceCount)
+        let ruleJSONString: String = toJSONString(endless: endlessRecurrenceCount)
         _ = Iterator.rruleContext?.evaluateScript("var rule = new RRule({ \(ruleJSONString) })")
-        guard let betweenOccurrences = Iterator.rruleContext?.evaluateScript("rule.between(new Date('\(beginDateJSON)'), new Date('\(untilDateJSON)'))").toArray() as? [Date] else {
+        guard var occurrences: [Date] = Iterator.rruleContext?.evaluateScript("rule.between(new Date('\(beginDateJSON)'), new Date('\(untilDateJSON)'))").toArray() as? [Date] else {
             return []
         }
 
-        var occurrences = betweenOccurrences
-        if let rdates = rdate?.dates {
+        if let rdates: [Date] = rdate?.dates {
             occurrences.append(contentsOf: rdates)
         }
 
-        if let exdates = exdate?.dates, let component = exdate?.component {
-            for occurrence in occurrences {
-                for exdate in exdates {
+        if let exdates: [Date] = exdate?.dates, let component: Calendar.Component = exdate?.component {
+            for occurrence: Date in occurrences {
+                for exdate: Date in exdates {
                     if calendar.isDate(occurrence, equalTo: exdate, toGranularity: component) {
-                        let index = occurrences.index(of: occurrence)!
+                        let index: Int = occurrences.index(of: occurrence)!
                         occurrences.remove(at: index)
                         break
                     }

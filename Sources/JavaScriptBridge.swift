@@ -10,7 +10,9 @@ import EventKit
 import Foundation
 
 internal struct JavaScriptBridge {
+
     internal static func rrulejs() -> String? {
+
         guard let libPath: String = Bundle(identifier: "Teambition.RRuleSwift-iOS")?.path(forResource: "rrule", ofType: "js") ??
             Bundle.main.path(forResource: "rrule", ofType: "js") else {
                 return nil
@@ -25,6 +27,7 @@ internal struct JavaScriptBridge {
 }
 
 internal extension RecurrenceFrequency {
+
     fileprivate func toJSONFrequency() -> String {
         switch self {
         case .secondly: return "RRule.SECONDLY"
@@ -39,6 +42,7 @@ internal extension RecurrenceFrequency {
 }
 
 internal extension EKWeekday {
+
     fileprivate func toJSONSymbol() -> String {
         switch self {
         case .monday: return "RRule.MO"
@@ -53,7 +57,9 @@ internal extension EKWeekday {
 }
 
 internal extension RecurrenceRule {
+
     internal func toJSONString(endless endlessRecurrenceCount: Int) -> String {
+
         var jsonString: String = "freq: \(frequency.toJSONFrequency()),"
         jsonString += "interval: \(max(1, interval)),"
         jsonString += "wkst: \(firstDayOfWeek.toJSONSymbol()),"

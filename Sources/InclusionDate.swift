@@ -28,7 +28,7 @@ public struct InclusionDate {
             if dateString.isEmpty {
                 return nil
             }
-            
+
             return dateString
         }
 
@@ -39,7 +39,7 @@ public struct InclusionDate {
             } else if let date: Date = RRule.realDate(dateString) {
                 return date
             }
-            
+
             return nil
         })
     }

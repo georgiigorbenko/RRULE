@@ -12,7 +12,7 @@ public struct ExclusionDate {
 
     /// All exclusion dates.
     public fileprivate(set) var dates: [Date] = []
-    
+
     /// The component of ExclusionDate, used to decide which exdate will be excluded.
     public fileprivate(set) var component: Calendar.Component
 

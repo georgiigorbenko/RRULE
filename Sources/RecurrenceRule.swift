@@ -12,7 +12,7 @@ import Foundation
 public struct RecurrenceRule {
 
     /// The calendar of recurrence rule.
-    public var calendar = Calendar.current
+    public var calendar: Calendar = Calendar.current
 
     /// The frequency of the recurrence rule.
     public var frequency: RecurrenceFrequency
@@ -20,7 +20,7 @@ public struct RecurrenceRule {
     /// Specifies how often the recurrence rule repeats over the component of time indicated by its frequency. For example, a recurrence rule with a frequency type of RecurrenceFrequency.weekly and an interval of 2 repeats every two weeks.
     ///
     /// The default value of this property is 1.
-    public var interval = 1
+    public var interval: Int = 1
 
     /// Indicates which day of the week the recurrence rule treats as the first day of the week. 
     ///
@@ -30,7 +30,7 @@ public struct RecurrenceRule {
     /// The start date of recurrence rule.
     ///
     /// The default value of this property is current date.
-    public var startDate = Date()
+    public var startDate: Date = Date()
 
     /// Indicates when the recurrence rule ends. This can be represented by an end date or a number of occurrences.
     public var recurrenceEnd: EKRecurrenceEnd?
@@ -77,7 +77,7 @@ public struct RecurrenceRule {
 
     /// The exclusion dates of the recurrence rule. The dates of this property will not be generated, even if some inclusive rdate matches the recurrence rule.
     public var exdate: ExclusionDate?
-    
+
     public init(frequency: RecurrenceFrequency) {
         self.frequency = frequency
     }

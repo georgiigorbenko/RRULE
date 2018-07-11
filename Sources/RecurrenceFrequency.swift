@@ -7,7 +7,7 @@
 //
 
 public enum RecurrenceFrequency {
-    
+
     case yearly
     case monthly
     case weekly

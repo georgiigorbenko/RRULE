@@ -1,0 +1,41 @@
+# 無効にするルール。
+disabled_rules:
+# コードの記載のない改行を許可したい
+- trailing_whitespace
+
+# デフォルト無効のルールのうち、有効にするもの。
+opt_in_rules:
+- attributes
+- closure_end_indentation
+- closure_spacing
+- empty_count
+- explicit_init
+- explicit_type_interface
+- fatal_error_message
+- first_where
+- implicitly_unwrapped_optional
+- missing_docs
+- nimble_operator
+- number_separator
+- object_literal
+- operator_usage_whitespace
+- overridden_super_call
+- private_outlet
+- prohibited_super_call
+- redundant_nil_coalescing
+- sorted_imports
+- valid_docs
+
+disabled_rules:
+- cyclomatic_complexity
+- function_body_length
+
+excluded:
+- RRuleSwiftExample/
+- Pods/
+- Carthage/
+
+line_length: 300
+
+identifier_name:
+  min_length: 1

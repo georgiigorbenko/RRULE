@@ -38,16 +38,16 @@ public struct RRule {
             return nil
         }
         let ruleString: String = String(string.suffix(from: range.upperBound))
-        let rules = ruleString.components(separatedBy: ";").compactMap { (rule) -> String? in
+        let rules: [String] = ruleString.components(separatedBy: ";").compactMap { (rule) -> String? in
             if rule.isEmpty {
                 return nil
             }
             return rule
         }
 
-        var recurrenceRule = RecurrenceRule(frequency: .daily)
+        var recurrenceRule: RecurrenceRule = RecurrenceRule(frequency: .daily)
         var ruleFrequency: RecurrenceFrequency?
-        for rule in rules {
+        for rule: String in rules {
             let ruleComponents: [String] = rule.components(separatedBy: "=")
             guard ruleComponents.count == 2 else {
                 continue
@@ -63,7 +63,7 @@ public struct RRule {
             }
 
             if ruleName == "INTERVAL" {
-                if let interval = Int(ruleValue) {
+                if let interval: Int = Int(ruleValue) {
                     recurrenceRule.interval = max(1, interval)
                 }
             }
@@ -75,17 +75,17 @@ public struct RRule {
             }
 
             if ruleName == "DTSTART" {
-                if let startDate = dateFormatter.date(from: ruleValue) {
+                if let startDate: Date = dateFormatter.date(from: ruleValue) {
                     recurrenceRule.startDate = startDate
-                } else if let startDate = realDate(ruleValue) {
+                } else if let startDate: Date = realDate(ruleValue) {
                     recurrenceRule.startDate = startDate
                 }
             }
 
             if ruleName == "UNTIL" {
-                if let endDate = dateFormatter.date(from: ruleValue) {
+                if let endDate: Date = dateFormatter.date(from: ruleValue) {
                     recurrenceRule.recurrenceEnd = EKRecurrenceEnd(end: endDate)
-                } else if let endDate = realDate(ruleValue) {
+                } else if let endDate: Date = realDate(ruleValue) {
                     recurrenceRule.recurrenceEnd = EKRecurrenceEnd(end: endDate)
                 }
             } else if ruleName == "COUNT" {
@@ -184,6 +184,7 @@ public struct RRule {
     }
 
     public static func stringFromRule(_ rule: RecurrenceRule) -> String {
+
         var rruleString: String = "RRULE:"
 
         rruleString += "FREQ=\(rule.frequency.toString());"
@@ -202,9 +203,7 @@ public struct RRule {
         }
 
         let bysetposStrings: [String] = rule.bysetpos.compactMap { (setpo) -> String? in
-            guard (-366...366 ~= setpo) && (setpo != 0) else {
-                return nil
-            }
+            guard (-366...366 ~= setpo) && (setpo != 0) else { return nil }
             return String(setpo)
         }
 
@@ -213,9 +212,7 @@ public struct RRule {
         }
 
         let byyeardayStrings: [String] = rule.byyearday.compactMap { (yearday) -> String? in
-            guard (-366...366 ~= yearday) && (yearday != 0) else {
-                return nil
-            }
+            guard (-366...366 ~= yearday) && (yearday != 0) else { return nil }
             return String(yearday)
         }
 
@@ -224,9 +221,7 @@ public struct RRule {
         }
 
         let bymonthStrings: [String] = rule.bymonth.compactMap { (month) -> String? in
-            guard 1...12 ~= month else {
-                return nil
-            }
+            guard 1...12 ~= month else { return nil }
             return String(month)
         }
 
@@ -235,9 +230,7 @@ public struct RRule {
         }
 
         let byweeknoStrings: [String] = rule.byweekno.compactMap { (weekno) -> String? in
-            guard (-53...53 ~= weekno) && (weekno != 0) else {
-                return nil
-            }
+            guard (-53...53 ~= weekno) && (weekno != 0) else { return nil }
             return String(weekno)
         }
 
@@ -246,9 +239,7 @@ public struct RRule {
         }
 
         let bymonthdayStrings: [String] = rule.bymonthday.compactMap { (monthday) -> String? in
-            guard (-31...31 ~= monthday) && (monthday != 0) else {
-                return nil
-            }
+            guard (-31...31 ~= monthday) && (monthday != 0) else { return nil }
             return String(monthday)
         }
 
