@@ -74,14 +74,6 @@ public struct RRule {
                 }
             }
 
-            if ruleName == "DTSTART" {
-                if let startDate: Date = dateFormatter.date(from: ruleValue) {
-                    recurrenceRule.startDate = startDate
-                } else if let startDate: Date = realDate(ruleValue) {
-                    recurrenceRule.startDate = startDate
-                }
-            }
-
             if ruleName == "UNTIL" {
                 if let endDate: Date = dateFormatter.date(from: ruleValue) {
                     recurrenceRule.recurrenceEnd = EKRecurrenceEnd(end: endDate)
@@ -193,8 +185,6 @@ public struct RRule {
         rruleString += "INTERVAL=\(interval);"
 
         rruleString += "WKST=\(rule.firstDayOfWeek.toSymbol());"
-
-        rruleString += "DTSTART=\(dateFormatter.string(from: rule.startDate as Date));"
 
         if let endDate: Date = rule.recurrenceEnd?.endDate {
             rruleString += "UNTIL=\(dateFormatter.string(from: endDate));"
