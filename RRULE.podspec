@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "RRULE"
-  s.version      = "0.5.0"
+  s.version      = "0.6.0"
   s.summary      = "Swift rrule library for working with recurrence rules of calendar dates."
   s.description  = <<-DESC
 RRULE is a library that can handle RRules with Swift.
