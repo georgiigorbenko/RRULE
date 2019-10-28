@@ -81,7 +81,7 @@ public struct RRule {
                     recurrenceRule.recurrenceEnd = EKRecurrenceEnd(end: endDate)
                 }
             } else if ruleName == "COUNT" {
-                if let count: Int = Int(ruleValue) {
+                if let count: Int = Int(ruleValue), count != 0 {
                     recurrenceRule.recurrenceEnd = EKRecurrenceEnd(occurrenceCount: count)
                 }
             }
